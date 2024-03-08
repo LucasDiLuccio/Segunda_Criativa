@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jogo de Criatividade</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      color: #333;
+      margin-top: 50px;
+    }
+
+    h2 {
+      color: #666;
+      margin-top: 30px;
+    }
+
+    h3 {
+      color: #666;
+      margin-top: 20px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 10px;
+    }
+
+    li {
+      margin-bottom: 5px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Jogo de Criatividade</h1>
+  <h2>Tema: <span id="theme"></span></h2>
+  <h3>Personagens:</h3>
+  <ul id="characters">
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+  <button onclick="generateGame()">Gerar</button>
+
+  <script>
+    // Lista de temas
+    var themes = [
+      "Viagem no tempo",
+      "Espaço sideral",
+      "Sobrevivência em uma ilha deserta",
+      "Super-heróis",
+      "Fantasia medieval",
+      "Mistério de assassinato",
+      "Exploração submarina",
+      "Futuro distópico",
+      "Conquista do espaço",
+      "Vida em outro planeta",
+      "Guerra mundial",
+      "Magia e feitiçaria",
+      "Aventura no Velho Oeste",
+      "Robôs e inteligência artificial",
+      "Conspiração governamental",
+      "Apocalipse zumbi",
+      "Espionagem internacional",
+      "Amor proibido",
+      "Descoberta de uma civilização perdida",
+      "Conflito entre humanos e criaturas míticas",
+      "Investigação paranormal",
+      "Conquista do Everest",
+      "Conflito entre vampiros e lobisomens",
+      "Sobrevivência em um ambiente hostil",
+      "Conflito entre humanos e alienígenas",
+      "Vida em um mundo pós-apocalíptico",
+      "Conflito entre gangues rivais",
+      "Jornada de autodescoberta",
+      "Conflito entre anjos e demônios",
+      "Vida em uma sociedade distópica",
+      "Conflito entre piratas e marinheiros",
+      "Aventura em um parque temático abandonado",
+      "Conflito entre humanos e criaturas mágicas",
+      "Vida em uma colônia espacial",
+      "Conflito entre heróis e vilões",
+      "Aventura em uma floresta encantada",
+      "Conflito entre humanos e mutantes",
+      "Vida em uma cidade subterrânea",
+      "Conflito entre gangues de rua",
+      "Aventura em um mundo dos sonhos",
+      "Conflito entre humanos e lobisomens",
+      "Vida em uma sociedade utópica",
+      "Conflito entre caçadores de tesouros",
+      "Aventura em um mundo virtual",
+      "Conflito entre humanos e fadas",
+      "Vida em uma civilização antiga",
+      "Conflito entre espiões rivais",
+      "Aventura em um circo misterioso",
+      "Conflito entre humanos e fantasmas",
+      "Vida em uma sociedade distante no futuro",
+      "Conflito entre detetives particulares",
+      "Aventura em um castelo assombrado",
+      "Conflito entre humanos e vampiros",
+      "Vida em uma sociedade pós-humana",
+      "Conflito entre caçadores de monstros",
+      "Aventura em uma mansão mal-assombrada",
+      "Conflito entre humanos e criaturas sobrenaturais",
+      "Vida em uma civilização alienígena",
+      "Conflito entre espiões e terroristas",
+      "Aventura em uma cidade abandonada",
+      "Conflito entre humanos e zumbis",
+      "Vida em uma sociedade controlada por inteligência artificial",
+      "Conflito entre caçadores de recompensas",
+      "Aventura em um navio pirata",
+      "Conflito entre humanos e lobos-guará",
+      "Vida em uma civilização subaquática",
+      "Conflito entre detetives e serial killers",
+      "Aventura em um parque de diversões assombrado",
+      "Conflito entre humanos e bruxas",
+      "Vida em uma sociedade dominada por robôs",
+      "Conflito entre caçadores de criaturas míticas",
+      "Aventura em um hospital abandonado",
+      "Conflito entre humanos e lobisomens",
+      "Vida em uma civilização perdida no espaço",
+      "Conflito entre espiões e espiões duplos",
+      "Aventura em uma floresta amaldiçoada",
+      "Conflito entre humanos e vampiros",
+      "Vida em uma sociedade distópica",
+      "Conflito entre caçadores de monstros",
+      "Aventura em uma mansão assombrada",
+      "Conflito entre humanos e criaturas sobrenaturais",
+      "Vida em uma civilização alienígena",
+      "Conflito entre espiões e terroristas",
+      "Aventura em uma cidade abandonada",
+      "Conflito entre humanos e zumbis",
+      "Vida em uma sociedade controlada por inteligência artificial",
+      "Conflito entre caçadores de recompensas",
+      "Aventura em um navio pirata",
+      "Conflito entre humanos e lobos-guará",
+      "Vida em uma civilização subaquática",
+      "Conflito entre detetives e serial killers",
+      "Aventura em um parque de diversões assombrado"
+    ];
+
+    // Lista de personagens
+    var characters = [
+      "Harry Potter",
+      "Darth Vader",
+      "Spider-Man",
+      "Wonder Woman",
+      "Sherlock Holmes",
+      "Elsa (Frozen)",
+      "Iron Man",
+      "Batman",
+      "Superman",
+      "Captain Jack Sparrow (Piratas do Caribe)",
+      "Hermione Granger (Harry Potter)",
+      "Luke Skywalker (Star Wars)",
+      "Captain America",
+      "Black Widow",
+      "James Bond",
+      "The Joker",
+      "Mickey Mouse",
+      "Minnie Mouse",
+      "Simba (O Rei Leão)",
+      "Mufasa (O Rei Leão)",
+      "Woody (Toy Story)",
+      "Buzz Lightyear (Toy Story)",
+      "Shrek",
+      "Fiona (Shrek)",
+      "Iron Man",
+      "Thor",
+      "Hulk",
+      "Black Widow",
+      "Captain America",
+      "Black Panther",
+      "Wonder Woman",
+      "Aquaman",
+      "Superman",
+      "Batman",
+      "Spider-Man",
+      "Wolverine",
+      "Deadpool",
+      "Hermione Granger (Harry Potter)",
+      "Ron Weasley (Harry Potter)",
+      "Harry Potter",
+      "Voldemort (Harry Potter)",
+      "Frodo Baggins (O Senhor dos Anéis)",
+      "Gandalf (O Senhor dos Anéis)",
+      "Aragorn (O Senhor dos Anéis)",
+      "Legolas (O Senhor dos Anéis)",
+      "Elsa (Frozen)",
+      "Anna (Frozen)",
+      "Olaf (Frozen)",
+      "Simba (O Rei Leão)",
+      "Mufasa (O Rei Leão)",
+      "Scar (O Rei Leão)",
+      "Woody (Toy Story)",
+      "Buzz Lightyear (Toy Story)",
+      "Jessie (Toy Story)",
+      "Shrek",
+      "Fiona (Shrek)",
+      "Donkey (Shrek)",
+      "Iron Man",
+      "Thor",
+      "Hulk",
+      "Black Widow",
+      "Captain America",
+      "Black Panther",
+      "Wonder Woman",
+      "Aquaman",
+      "Superman",
+      "Batman",
+      "Spider-Man",
+      "Wolverine",
+      "Deadpool",
+      "Hermione Granger (Harry Potter)",
+      "Ron Weasley (Harry Potter)",
+      "Harry Potter",
+      "Voldemort (Harry Potter)",
+      "Frodo Baggins (O Senhor dos Anéis)",
+      "Gandalf (O Senhor dos Anéis)",
+      "Aragorn (O Senhor dos Anéis)",
+      "Legolas (O Senhor dos Anéis)",
+      "Elsa (Frozen)",
+      "Anna (Frozen)",
+      "Olaf (Frozen)",
+      "Simba (O Rei Leão)",
+      "Mufasa (O Rei Leão)",
+      "Scar (O Rei Leão)",
+      "Woody (Toy Story)",
+      "Buzz Lightyear (Toy Story)",
+      "Jessie (Toy Story)",
+      "Shrek",
+      "Fiona (Shrek)",
+      "Donkey (Shrek)",
+      "Cristiano Ronaldo (Futebol)",
+        "Serena Williams (Tênis)",
+        "LeBron James (Basquete)",
+        "Usain Bolt (Atletismo)",
+        "Roger Federer (Tênis)",
+        "Lionel Messi (Futebol)",
+        "Michael Phelps (Natação)",
+        "Simone Biles (Ginástica)",
+        "Tom Brady (Futebol Americano)",
+        "Muhammad Ali (Boxe)",
+        "Tom Hanks (Cinema)",
+        "Meryl Streep (Cinema)",
+        "Leonardo DiCaprio (Cinema)",
+        "Brad Pitt (Cinema)",
+        "Angelina Jolie (Cinema)",
+        "Jennifer Lawrence (Cinema)",
+        "Robert Downey Jr. (Cinema)",
+        "Scarlett Johansson (Cinema)",
+        "Denzel Washington (Cinema)",
+        "Emma Stone (Cinema)",
+        "Beyoncé (Música)",
+        "Taylor Swift (Música)",
+        "Ed Sheeran (Música)",
+        "Rihanna (Música)",
+        "Justin Bieber (Música)",
+        "Adele (Música)",
+        "Drake (Música)",
+        "Ariana Grande (Música)",
+        "Bruno Mars (Música)",
+        "Billie Eilish (Música)"
+    ];
+
+    // Função para escolher um elemento aleatório de uma lista
+    function getRandomElement(list) {
+      var randomIndex = Math.floor(Math.random() * list.length);
+      return list[randomIndex];
+    }
+
+    // Função para obter 3 personagens aleatórios sem repetição
+    function getRandomCharacters() {
+      var charactersCopy = characters.slice(); // Cria uma cópia da lista de personagens
+      var randomCharacters = [];
+
+      for (var i = 0; i < 3; i++) {
+        var randomIndex = Math.floor(Math.random() * charactersCopy.length);
+        var character = charactersCopy.splice(randomIndex, 1)[0]; // Remove o personagem escolhido da cópia
+        randomCharacters.push(character);
+      }
+
+      return randomCharacters;
+    }
+
+    // Função para atualizar o tema e os personagens na página
+    function updateGame() {
+      var theme = getRandomElement(themes);
+      var characters = getRandomCharacters();
+
+      document.getElementById("theme").textContent = theme;
+      document.getElementById("characters").innerHTML = "<li>" + characters[0] + "</li><li>" + characters[1] + "</li><li>" + characters[2] + "</li>";
+    }
+
+    // Função para gerar o jogo
+    function generateGame() {
+      updateGame();
+    }
+
+    // Chama a função para atualizar o jogo quando a página é carregada
+    window.onload = updateGame;
+  </script>
+</body>
+</html>
